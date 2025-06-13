@@ -1,5 +1,4 @@
-import GameLevel1 from './game-level-1.js';
-
+import Game from './game.js';
 
 class App {
     constructor() {
@@ -9,7 +8,7 @@ class App {
         this.canvas.height = window.innerHeight;
         this.keys = {};
         this.initInput();
-        this.setAction(GameLevel1);
+        this.setAction(Game);
         this.run();
     }
 
