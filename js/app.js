@@ -47,6 +47,7 @@ class App {
     }
 
     render() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.activeAction.render();
     }
 
@@ -64,7 +65,6 @@ class App {
 
         requestAnimationFrame(frame);
     }
-
 }
 
 new App();
