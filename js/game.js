@@ -1,4 +1,6 @@
 import Star from './star.js';
+import Background from './bg.js';
+import Planet from './planet.js';
 
 export default class Game {
     constructor(app) {
@@ -11,10 +13,13 @@ export default class Game {
             y: this.app.canvas.height - (this.height + 100),
         };
         this.stars = [];
+        this.planets = [];
         this.init();
     }
 
     init() {
+        this.background = new Background(this.app);
+        this.planets.push(new Planet(this.app));
         for (let i = 0; i < 50; i++) {
             this.stars.push(new Star(null, this.app));
         }
@@ -34,6 +39,13 @@ export default class Game {
             this.player.y += 0.5 * dt;
         }
 
+        this.planets.forEach((planet, index) => {
+            planet.update(dt);
+            if (planet.y > this.app.canvas.height) {
+                this.planets.splice(index, 1, new Planet(this.app));
+            }
+        });
+
         this.stars.forEach((star, index) => {
             star.update(dt);
 
@@ -42,12 +54,17 @@ export default class Game {
             }
         });
 
+        this.background.update(dt);
     }
 
     render() {
+        this.background.render();
         for (let star of this.stars) {
             star.render();
         }
+        this.planets.forEach(planet => {
+            planet.render();
+        });
 
         this.app.ctx.fillStyle = this.player.color;
         this.app.ctx.fillRect(this.player.x, this.player.y, 50, 100);
