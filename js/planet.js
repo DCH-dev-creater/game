@@ -6,10 +6,10 @@ export default class Planet {
         this.planet_3 = document.getElementById('planet_3');
         this.planets = [this.planet_1, this.planet_2, this.planet_3];
         this.planet = this.planets[Math.floor(Math.random() * this.planets.length)];
-        this.radius = Math.random() * 200 + 50;
+        this.radius = Math.random() * 300 + 50;
         this.x = Math.random() * (this.app.canvas.width - this.radius);
-        this.y = -(this.radius * 2);
-        this.speed = Math.random() * 0.3 + 0.1;
+        this.y = -(this.radius * 2 + (Math.random() * 1500 + 1000));
+        this.speed = Math.random() * 0.1 + 0.1;
 
         this.color = `hsl(${Math.random() * 360}, 100.00%, 50.00%)`;
 

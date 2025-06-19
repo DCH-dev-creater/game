@@ -1,7 +1,7 @@
 export default class Background {
     constructor(app) {
         this.app = app;
-        this.speed = 0.2; // Speed of the background
+        this.speed = 0.1; // Speed of the background
         this.img = document.getElementById('bg');
         this.deltaY = this.img.height - this.app.canvas.height;
         this.startY = this.img.height - this.app.canvas.height;
