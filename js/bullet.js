@@ -5,7 +5,7 @@ constructor(app, x, y, width) {
         this.velocity = {
             y: 0.5
         }
-        this.power = 10
+        this.power = 10;
         this.image = document.getElementById("bullet");
         this.position = {
             x: x - this.width * 0.19,

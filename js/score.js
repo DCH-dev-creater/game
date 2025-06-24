@@ -12,7 +12,7 @@ export default class Score {
     }
 
     playSound() {
-        this.audio.volume = 0.4;
+        this.audio.volume = 0.3;
         this.audio.loop = false;
         this.audio.play();
     }

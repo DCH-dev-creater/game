@@ -18,21 +18,39 @@ export default class Player {
         this.speedX = 0.4;
         this.speedY = 0.26;
 
-        this.flameFrameWidth = 100
-        this.flameFrameHeight = 200
-        this.XindexFlame = 0
-        this.YindexFlame = 1
+        this.flameFrameWidth = 100;
+        this.flameFrameHeight = 200;
+        this.XindexFlame = 0;
+        this.YindexFlame = 1;
         this.imageFlame = document.getElementById("flame");
 
-        this.bullets = []
-        this.intervalShoot = 150
-        this.countTime = 200
+        this.bullets = [];
+        this.intervalShoot = 150;
+        this.countTime = 200;
 
+        this.hitbox1 = {
+            x: this.x + this.width * 0.45,
+            y: this.y + 25,
+            w: this.width * 0.1,
+            h: this.height * 0.8
+        }
+        this.hitbox2 = {
+            x: this.x + this.width * 0.08,
+            y: this.y + this.height * 0.58,
+            w: this.width * 0.84,
+            h: this.height * 0.18
+        }
+
+        this.live = true;
     }
 
     update(dt) {
         if (this.app.keys['ArrowLeft']) {
-            this.x -= this.speedX * dt;
+            if (this.x > 0) {
+                this.x -= this.speedX * dt;
+                this.hitbox1.x -= this.speedX * dt;
+                this.hitbox2.x -= this.speedX * dt;
+            }
             this.frame.currentFrameIndex -= 1;
             if (this.frame.currentFrameIndex < 0) this.frame.currentFrameIndex = 0;
         } else {
@@ -41,7 +59,11 @@ export default class Player {
             }
         }
         if (this.app.keys['ArrowRight']) {
-            this.x += this.speedX * dt;
+            if (this.x + this.width < this.app.canvas.width) {
+                this.x += this.speedX * dt;
+                this.hitbox1.x += this.speedX * dt;
+                this.hitbox2.x += this.speedX * dt;
+            }
             this.frame.currentFrameIndex += 1;
             if (this.frame.currentFrameIndex > 8) this.frame.currentFrameIndex = 8;
         } else {
@@ -50,30 +72,24 @@ export default class Player {
             }
         }
         if (this.app.keys['ArrowUp']) {
-            this.y -= this.speedY * dt;
+            if (this.y > 50) {
+                this.y -= this.speedY * dt;
+                this.hitbox1.y -= this.speedY * dt;
+                this.hitbox2.y -= this.speedY * dt;
+            }
             this.YindexFlame = 0
         } else {
             if (this.YindexFlame === 0) this.YindexFlame = 1
         }
         if (this.app.keys['ArrowDown']) {
-            this.y += this.speedY * dt;
+            if (this.y + this.width + 30 < this.app.canvas.height) {
+                this.y += this.speedY * dt;
+                this.hitbox1.y += this.speedY * dt;
+                this.hitbox2.y += this.speedY * dt;
+            }
             this.YindexFlame = 2
         } else {
             if (this.YindexFlame === 2) this.YindexFlame = 1
-        }
-
-
-        if (this.x < 0) {
-            this.x = 0;
-        }
-        if (this.x + this.width > this.app.canvas.width) {
-            this.x = this.app.canvas.width - this.width;
-        }
-        if (this.y < 0) {
-            this.y = 0;
-        }
-        if (this.y + this.height > this.app.canvas.height) {
-            this.y = this.app.canvas.height - this.height;
         }
 
         this.XindexFlame += 1
@@ -131,5 +147,9 @@ export default class Player {
             this.x, this.y,
             this.width, this.height
         );
+
+        // this.app.ctx.fillStyle = "red";
+        // this.app.ctx.fillRect(this.hitbox1.x, this.hitbox1.y, this.hitbox1.w, this.hitbox1.h)
+        // this.app.ctx.fillRect(this.hitbox2.x, this.hitbox2.y, this.hitbox2.w, this.hitbox2.h)
     }
 }

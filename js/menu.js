@@ -16,12 +16,10 @@ export default class Menu {
         ];
         this.background = new Background(this.app)
         this.audio = document.getElementById("menu-music");
-        this.playSound()
-        // GameScene.pauseSound()
     }
 
     playSound() {
-      this.audio.volume = 0.4;
+      this.audio.volume = 0.3;
       this.audio.loop = false
       this.audio.play();
     }
@@ -49,8 +47,8 @@ export default class Menu {
         // menu item selected
         if (this.app.checkKeyPress('Enter')) {
             switch (this.menuIndex) {
-            case 0: this.app.setAction(Game); this.pauseSound(); break;
-            case 1: this.app.setAction(Score); this.pauseSound(); break;
+                case 0: this.app.setAction(Game); this.pauseSound(); break;
+                case 1: this.app.setAction(Score); this.pauseSound(); break;
             }
         }
 
@@ -58,10 +56,10 @@ export default class Menu {
 
         if (this.app.checkKeyPress('m')) {
             if (this.mute === false) {
-                this.pauseSound()
+                this.playSound()
                 this.mute = true
             } else {
-                this.playSound()
+                this.pauseSound()
                 this.mute = false
             }
         }
