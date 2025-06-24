@@ -1,4 +1,5 @@
 import Game from './game.js';
+import Menu from './menu.js';
 
 class App {
     constructor() {
@@ -6,13 +7,14 @@ class App {
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
-        this.keys = {};
+        this.score = 0;
         this.initInput();
-        this.setAction(Game);
+        this.setAction(Menu);
         this.run();
     }
 
     initInput() {
+        this.keys = {};
         window.addEventListener('keydown', (e) => {
             this.keys[e.key] = true;
         });
@@ -21,17 +23,17 @@ class App {
         });
     }
 
-    checkKeyPress(key) {
-        let isKeyPressed = this.keys[key] || false;
-        this.lastKeyState[key] = this.lastKeyState || {};
+    checkKeyPress(keyCode) {
+        let isKeyPressed = this.keys[keyCode] || false;
+        this.lastKeyState = this.lastKeyState || {};
 
-        if (typeof this.lastKeyState[key] === 'undefined') {
-            this.lastKeyState[key] = isKeyPressed;
+        if (typeof this.lastKeyState[keyCode] === 'undefined') {
+            this.lastKeyState[keyCode] = isKeyPressed;
             return false;
         }
 
-        if (this.lastKeyState[key] !== isKeyPressed) {
-            this.lastKeyState[key] = isKeyPressed;
+        if (this.lastKeyState[keyCode] !== isKeyPressed) {
+            this.lastKeyState[keyCode] = isKeyPressed;
             return isKeyPressed;
         }
 
